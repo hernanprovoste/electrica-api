@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gestion.electrica.api.model.Consumo;
 import com.gestion.electrica.api.service.ConsumoService;
 
+// Controller dedicado a consumir y distribuir la api de consumo
+
 @RestController
 @RequestMapping("/consumos")
 public class ConsumoController {
