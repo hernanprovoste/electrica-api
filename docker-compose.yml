@@ -1,0 +1,27 @@
+services:
+# Servicio de la API
+  api:
+    build: . # Le dice a Compose que construya la imagen usando el Dockerfile en la misma carpeta
+    container_name: electrica-api
+    ports:
+      - "8080:8080"
+    depends_on: # Le dice a nuestra API que no arranque hasta que la BD esté lista
+      - postgres-db
+    environment:
+      # Pasamos la URL de la BD como variable de entorno
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/electricity_db
+
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=electricity_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
